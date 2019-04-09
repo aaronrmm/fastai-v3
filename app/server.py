@@ -8,9 +8,8 @@ from io import BytesIO
 from fastai import *
 from fastai.vision import *
 
-# export_file_url = 'https://www.dropbox.com/s/v6cuuvddq73d1e0/export.pkl?raw=1'
-export_file_url = 'https://www.dropbox.com/s/6bgq8t6yextloqp/export.pkl?raw=1'
-export_file_name = 'export.pkl'
+export_file_url = 'https://drive.google.com/uc?export=download&id=1l-RqB8s71dAAALv8q9ucN83UapxjQMpH'
+export_file_name = 'lm.pkl'
 
 classes = ['black', 'grizzly', 'teddys']
 path = Path(__file__).parent
@@ -53,8 +52,8 @@ def index(request):
 async def analyze(request):
     data = await request.form()
     img_bytes = await (data['file'].read())
-    img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict(img)[0]
+    text = open_image(BytesIO(img_bytes))
+    prediction = text;//learn.predict(text)[0]
     return JSONResponse({'result': str(prediction)})
 
 if __name__ == '__main__':
