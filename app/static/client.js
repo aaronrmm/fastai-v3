@@ -13,7 +13,6 @@ function showPicked(input) {
 }
 
 function analyze() {
-	text = "test";
     var uploadFiles = el('file-input').files;
     if (uploadFiles.length != 1) alert('Please select 1 file to analyze!');
 
@@ -31,7 +30,7 @@ function analyze() {
     }
 
     var fileData = new FormData();
-    fileData.append('text', text);
+    fileData.append('file', uploadFiles[0]);
     xhr.send(fileData);
 }
 
