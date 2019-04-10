@@ -52,9 +52,8 @@ def index(request):
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
     data = await request.form()
-    img_bytes = await (data['file'].read())
-    img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict("Testing", n_words=10)
+    text = data['file']
+    prediction = learn.predict(text, n_words=20)
     return JSONResponse({'result': str(prediction)})
 
 if __name__ == '__main__':

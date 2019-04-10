@@ -1,41 +1,24 @@
+<!DOCTYPE html>
 <html lang='en'>
-<head>
-    <meta charset='utf-8'>
+    <head><meta charset='utf-8' name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <title>GM Simulator</title>
     <link rel='stylesheet' href='../static/style.css'>
     <script src='../static/client.js'></script>
-</head>
-<body>
+    </head>
+<style="text-align:center;">         <textarea readonly="true" id="botChat" style="text-align:left; position:fixed; display:block; top:3vh; border:1px solid black; width:92.5vw; margin-left:1%; margin-right:2.25%; height:75vh; resize:none; font-family:Courier; overflow-y:auto; user-select:none; font-size:3vw;"></textarea>        <p style="position:absolute; border:1px solid black; top:78vh; left:12.25vw; width:75vw;">        <input type="text" placeholder="Ask a question" onKeypress="enterButton(event, document.getElementsByTagName('input')[0].value);" style="color:red; background-color:black; width:79%;">         <button onClick="text = document.getElementsByTagName('input')[0].value; analyze(text); youSays(text)">Talk To Me</button></p>
+</body>
 <div>
     <div class='center'>
-        <div class='title'>Classify Bear Images 🐻</div>
-        <p>
-            Use images of <strong>teddy</strong> bears, <strong>black</strong> bears, <strong>grizzly</strong> bears, or
-            all three!
-        </p>
+        
         <div class='content'>
-            <div class='no-display'>
-                <input id='file-input'
-                       class='no-display'
-                       type='file'
-                       name='file'
-                       accept='image/*'
-                       onchange='showPicked(this)'>
-            </div>
-            <button class='choose-file-button' type='button' onclick='showPicker()'>Select Image</button>
-            <div class='upload-label'>
-                <label id='upload-label'>No file chosen</label>
-            </div>
-            <div>
-                <img id='image-picked' class='no-display' alt='Chosen Image' height='200'>
-            </div>
-            <div class='analyze'>
-                <button id='analyze-button' class='analyze-button' type='button' onclick='analyze()'>Analyze</button>
-            </div>
-            <div class='result-label'>
-                <label id='result-label'></label>
-            </div>
+
         </div>
     </div>
 </div>
+<script>
+function botSays(x) {document.getElementsByTagName("textarea")[0].innerHTML += "Player: "+x + "\n";  botChat.scrollTop = botChat.scrollHeight;}
+function youSays(x) {document.getElementsByTagName("textarea")[0].innerHTML += "GM: "+ x + "\n";  botChat.scrollTop = botChat.scrollHeight;}
+function enterButton(e, x) { if (e.keyCode == 13) { text = document.getElementsByTagName('input')[0].value; analyze(text); youSays(text); }   }   
+</script>
 </body>
 </html>
