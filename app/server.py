@@ -55,8 +55,8 @@ async def analyze(request):
     text = data['file'] +" Player:"
     prediction = learn.predict(text, n_words=200)
     result = prediction[len(text):]
-    gm = result.find("GM :",2)
-    player = result.find("Player :",2)
+    gm = result.find("gm :",2)
+    player = result.find("player :",2)
     if player > -1:
         if gm > -1:
             if player < gm:
