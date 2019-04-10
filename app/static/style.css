@@ -4,4 +4,5 @@ body {
 textarea {
    background-color:black; 
    color:white;
+   font-size: 1vw;
 }
