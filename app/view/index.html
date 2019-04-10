@@ -5,7 +5,7 @@
     <link rel='stylesheet' href='../static/style.css'>
     <script src='../static/client.js'></script>
     </head>
-<style="text-align:center;">         <textarea readonly="true" id="botChat" style="text-align:left; position:fixed; display:block; top:3vh; border:1px solid black; width:92.5vw; margin-left:1%; margin-right:2.25%; height:75vh; resize:none; font-family:Courier; overflow-y:auto; user-select:none; font-size:3vw;"></textarea>        <p style="position:absolute; border:1px solid black; top:78vh; left:12.25vw; width:75vw;">        <input type="text" placeholder="Ask a question" onKeypress="enterButton(event, document.getElementsByTagName('input')[0].value);" style="color:red; background-color:black; width:79%;">         <button onClick="text = document.getElementsByTagName('input')[0].value; analyze(text); youSays(text)">Talk To Me</button></p>
+<style="text-align:center;">         <textarea readonly="true" id="botChat" style="text-align:left; position:fixed; display:block; top:3vh; border:1px solid black; width:92.5vw; margin-left:1%; margin-right:2.25%; height:75vh; resize:none; font-family:Courier; overflow-y:auto; user-select:none; font-size:3vw;"></textarea>        <p style="position:absolute; border:1px solid black; top:78vh; left:12.25vw; width:75vw;">        <input type="text" placeholder="Describe your world" onKeypress="enterButton(event, document.getElementsByTagName('input')[0].value);" style="color:red; background-color:black; width:79%;">         <button onClick="text = document.getElementsByTagName('input')[0].value; history = document.getElementsByTagName("textarea")[0].innerHTML; analyze(history+" "+text); youSays(text)">Make it so</button></p>
 </body>
 <div>
     <div class='center'>
@@ -18,7 +18,7 @@
 <script>
 function botSays(x) {document.getElementsByTagName("textarea")[0].innerHTML += "Player: "+x + "\n";  botChat.scrollTop = botChat.scrollHeight;}
 function youSays(x) {document.getElementsByTagName("textarea")[0].innerHTML += "GM: "+ x + "\n";  botChat.scrollTop = botChat.scrollHeight;}
-function enterButton(e, x) { if (e.keyCode == 13) { text = document.getElementsByTagName('input')[0].value; analyze(text); youSays(text); }   }   
+function enterButton(e, x) { if (e.keyCode == 13) { text = document.getElementsByTagName('input')[0].value; history = document.getElementsByTagName("textarea")[0].innerHTML; analyze(history+" "+text); youSays(text); }   }   
 </script>
 </body>
 </html>

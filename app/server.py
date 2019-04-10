@@ -52,9 +52,23 @@ def index(request):
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
     data = await request.form()
-    text = data['file']
-    prediction = learn.predict(text, n_words=20)
-    return JSONResponse({'result': str(prediction)})
+    text = data['file'] +" Player:"
+    prediction = learn.predict(text, n_words=200)
+    result = prediction[len(text):]
+    gm = result.find("GM :",beg=2)
+    player = result.find("Player :",beg=2)
+    if player > -1:
+        if gm > -1:
+            if player < gm:
+                result = result[:player]
+            else:
+                result = result[:gm]
+        else:
+            result = result[:player]
+    else:
+        if gm > -1:
+            result = result[:gm]
+    return JSONResponse({'result': str(result)})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv: uvicorn.run(app=app, host='0.0.0.0', port=5042)
