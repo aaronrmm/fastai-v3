@@ -52,11 +52,11 @@ def index(request):
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
     data = await request.form()
-    text = data['file'] +" Player:"
-    prediction = learn.predict(text, n_words=200)
+    text = "GM : "+data['file'] +" Player : "
+    prediction = learn.beam_search(text, n_words=200)#learn.beam_search("How do you want to do this? Player :", n_words=100)
     result = prediction[len(text):]
-    gm = result.find("gm :",2)
-    player = result.find("player :",2)
+    gm = result.lower().find("gm :",2)
+    player = result.lower().find("player :",2)
     if player > -1:
         if gm > -1:
             if player < gm:
