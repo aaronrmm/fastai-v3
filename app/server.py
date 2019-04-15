@@ -59,7 +59,6 @@ async def analyze(request):
     result = prediction[len(text):]
     gm = result.lower().find("gm :",2)
     player = result.lower().find("player :",2)
-    '''
     if player > -1:
         if gm > -1:
             if player < gm:
@@ -71,8 +70,7 @@ async def analyze(request):
     else:
         if gm > -1:
             result = result[:gm]
-    '''
-    return JSONResponse({'result': str(prediction)})
+    return JSONResponse({'result': str(result)})
 
 if __name__ == '__main__':
     if 'serve' in sys.argv: uvicorn.run(app=app, host='0.0.0.0', port=5042)
