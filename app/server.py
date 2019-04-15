@@ -59,6 +59,7 @@ async def analyze(request):
     result = prediction[len(text):]
     gm = result.lower().find("gm :",2)
     player = result.lower().find("player :",2)
+    '''
     if player > -1:
         if gm > -1:
             if player < gm:
@@ -70,6 +71,7 @@ async def analyze(request):
     else:
         if gm > -1:
             result = result[:gm]
+    '''
     return JSONResponse({'result': str(prediction)})
 
 if __name__ == '__main__':
