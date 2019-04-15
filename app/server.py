@@ -54,8 +54,8 @@ async def analyze(request):
     data = await request.form()
     text = "GM : "+data['file'] +" Player : "
     beginnings = ["I would like to ", "Can I ","I ","What I'll do is I'll ", "Would it work if I ", "Can I cast ","I would like to cast "] 
-    text+=random.choice(beginnings)
-    prediction = learn.predict(text, n_words=200)#learn.beam_search("How do you want to do this? Player :", n_words=100)
+    beginning=random.choice(beginnings)
+    prediction = learn.predict(text+beginning, n_words=200)#learn.beam_search("How do you want to do this? Player :", n_words=100)
     result = prediction[len(text):]
     gm = result.lower().find("gm :",2)
     player = result.lower().find("player :",2)
