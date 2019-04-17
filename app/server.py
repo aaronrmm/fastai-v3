@@ -72,12 +72,29 @@ async def analyze(request):
             result = result[:gm]
 
     match = re.search(r'\d+', result)
-    if match!=None:
+    while match!=None:
         integer = match[0]
         place = result.find(str(integer))
         result = result[:place]
         rolls =["natural 1 ","1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","natural 20 ","critical "]
         result = result+random.choice(rolls)
+    	prediction = learn.predict(text+result, n_words=200)#learn.beam_search("How do you want to do this? Player :", n_words=100)
+        result = prediction[len(text):]
+        gm = result.lower().find("gm :",2)
+        player = result.lower().find("player :",2)
+        if player > -1:
+            if gm > -1:
+                if player < gm:
+                    result = result[:player]
+                else:
+                    result = result[:gm]
+            else:
+                result = result[:player]
+        else:
+            if gm > -1:
+                result = result[:gm]
+
+        match = re.search(r'\d+', result)
     return JSONResponse({'result': str(result)})
 
 if __name__ == '__main__':
