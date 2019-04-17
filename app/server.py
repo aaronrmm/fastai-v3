@@ -72,7 +72,7 @@ async def analyze(request):
             result = result[:gm]
 
     match = re.search(r'\d+', result)
-   while match!=None:
+    while match!=None:
         integer = match[0]
         place = result.find(str(integer))
         result = result[:place]
