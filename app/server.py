@@ -4,7 +4,7 @@ from starlette.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 import uvicorn, aiohttp, asyncio
 from io import BytesIO
-
+import re
 from fastai import *
 from fastai.vision import *
 
@@ -53,7 +53,7 @@ def index(request):
 async def analyze(request):
     data = await request.form()
     text = "GM : "+data['file'] +" Player : "
-    beginnings = ["What if we ","Why not ","What if we ", "Can we ","Maybe we can ","I would like to ", "Can I ","I ","What I'll do is I'll ", "Would it work if I ", "Can I cast ","I would like to cast ", "Can I roll a"] 
+    beginnings = ["What if we ","Why not ","What if we ", "Can we ","Maybe we can ","I would like to ", "Can I ","I ","What I'll do is I'll ", "Would it work if I ", "Can I cast ","I would like to cast ", "Can I roll a","Remind me about ","What about ","Where","How","What check","What","From where I am "] 
     beginning=random.choice(beginnings)
     prediction = learn.predict(text+beginning, n_words=200)#learn.beam_search("How do you want to do this? Player :", n_words=100)
     result = prediction[len(text):]
@@ -70,6 +70,14 @@ async def analyze(request):
     else:
         if gm > -1:
             result = result[:gm]
+
+    match = re.search(r'\d+', result)
+    if match!=None:
+        integer = match[0]
+        place = result.find(str(integer))
+        result = result[:place]
+        rolls =["natural 1 ","1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","natural 20 ","critical "]
+        result = result+random.choice(rolls)
     return JSONResponse({'result': str(result)})
 
 if __name__ == '__main__':
