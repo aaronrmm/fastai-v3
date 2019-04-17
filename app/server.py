@@ -53,7 +53,7 @@ def index(request):
 async def analyze(request):
     data = await request.form()
     text = "GM : "+data['file'] +" Player : "
-    beginnings = ["I would like to ", "Can I ","I ","What I'll do is I'll ", "Would it work if I ", "Can I cast ","I would like to cast "] 
+    beginnings = ["What if we ","Why not ","What if we ", "Can we ","Maybe we can ","I would like to ", "Can I ","I ","What I'll do is I'll ", "Would it work if I ", "Can I cast ","I would like to cast ", "Can I roll a"] 
     beginning=random.choice(beginnings)
     prediction = learn.predict(text+beginning, n_words=200)#learn.beam_search("How do you want to do this? Player :", n_words=100)
     result = prediction[len(text):]
